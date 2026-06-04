@@ -96,7 +96,7 @@ while op_princ != '0':
                     nomedocliente = input("##### Novo nome   : ")
                     enderecodocliente = input("##### Novo endereço  : ")
                     celulardocliente = input("##### Novo celular: ")
-                    clientes[cpf] = [nome, endereço, celular]
+                    clientes[cpf] = [nomedocliente, enderecodocliente, celulardocliente]
                     print()
                     print("Cliente alterado com sucesso!")
                     print()
