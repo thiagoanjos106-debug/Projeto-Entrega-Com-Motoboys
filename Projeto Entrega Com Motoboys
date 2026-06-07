@@ -56,7 +56,7 @@ while op_princ != '0':
                 print()
                 celulardocliente = input("##### Celular: ")
                 print()
-                clientes[cpf] = [nome, endereço, celular]
+                clientes[cpf] = [nomedocliente, enderecodocliente, celulardocliente]
                 print("Clientes:", clientes)    # Apenas para conferir inclusão
                 print("Cliente cadastrado com sucesso!")
                 input("Tecle <ENTER> para continuar...")
