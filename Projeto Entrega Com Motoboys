@@ -1,7 +1,7 @@
 import os
 
 ########################################
-##### Sistema MotoFast - Versão 2  #####
+##### Sistema MotoFast - Versão 3  #####
 ########################################
 
 clientes = {
@@ -9,7 +9,25 @@ clientes = {
     '222' : ["Cliente 2", "rua qualquer 2", "9922-2222"],
     '333' : ["Cliente 3", "rua qualquer 3", "9933-3333"],
     '444' : ["Cliente 4", "rua qualquer 4", "9944-4444"],
-    '555' : ["Cliente 5", "rua qualquer 5", "9955-5555"]   
+    '555' : ["Cliente 5", "rua qualquer 5", "9955-5555"]
+}
+
+motoboys = {
+    # CPF: [Nome, Placa, Celular]
+    '000.000.000-01': ['Motoboy 1', 'ABC 0001', '9.0000-0001'],
+    '000.000.000-02': ['Motoboy 2', 'ABC 0002', '9.0000-0002'],
+    '000.000.000-03': ['Motoboy 3', 'ABC 0003', '9.0000-0003'],
+    '000.000.000-04': ['Motoboy 4', 'ABC 0004', '9.0000-0004'],
+    '000.000.000-05': ['Motoboy 5', 'ABC 0005', '9.0000-0005']
+}
+
+entregas = {
+    # Número da Entrega: [Produto, Endereço, CPF do Cliente, CPF do Motoboy]
+    '0001': ['X-Tudo', 'Rua Qualquer - 1', '111.111.111-11', '000.000.000-01'],
+    '0002': ['Pizza', 'Rua Qualquer - 2', '222.222.222-22', '000.000.000-02'],
+    '0003': ['Açaí', 'Rua Qualquer - 3', '333.333.333-33', '000.000.000-03'],
+    '0004': ['Batata Frita', 'Rua Qualquer - 4', '444.444.444-44', '000.000.000-04'],
+    '0005': ['Bolo de Chocolate', 'Rua Qualquer - 5', '555.555.555-55', '000.000.000-05']
 }
 
 op_princ = ''
@@ -56,7 +74,7 @@ while op_princ != '0':
                 print()
                 celulardocliente = input("##### Celular: ")
                 print()
-                clientes[cpf] = [nomedocliente, enderecodocliente, celulardocliente]
+                clientes[cpfdocliente] = [nomedocliente, enderecodocliente, celulardocliente]
                 print("Clientes:", clientes)    # Apenas para conferir inclusão
                 print("Cliente cadastrado com sucesso!")
                 input("Tecle <ENTER> para continuar...")
@@ -89,7 +107,7 @@ while op_princ != '0':
                 if cpf in clientes:
                     print("##### Dados atuais do cliente:")
                     print("##### Nome     :", clientes[cpf][0])
-                    print("##### Email    :", clientes[cpf][1])
+                    print("##### Endereço    :", clientes[cpf][1])
                     print("##### Celular  :", clientes[cpf][2])
                     print()
                     print("##### Digite os novos dados do cliente:")
@@ -100,7 +118,7 @@ while op_princ != '0':
                     print()
                     print("Cliente alterado com sucesso!")
                     print()
-                    print("Clientes:", clintes)    # Apenas para conferir alteração
+                    print("Clientes:", clientes)    # Apenas para conferir alteração
                     print()
                 else:
                     print("Cliente não encontrado!")
@@ -118,7 +136,7 @@ while op_princ != '0':
                 if cpf in clientes:
                     print("##### Dados atuais do cliente:")
                     print("##### Nome     :", clientes[cpf][0])
-                    print("##### Email    :", clientes[cpf][1])
+                    print("##### Endereço    :", clientes[cpf][1])
                     print("##### Celular  :", clientes[cpf][2])
                     print()
                     confirma = input("Tecle 's' para confirmar exclusão...")
@@ -133,17 +151,17 @@ while op_princ != '0':
                     print("Cliente não encontrado!")
                 print()
                 input("Tecle <ENTER> para continuar...")
-    
+
     elif op_princ == '2':
         op_motoboy = ''
         while op_motoboy != '0':
             os.system('cls' if os.name == 'nt' else 'clear')
             print()
             print("############################################")
-            print("#####         Módulo Motoboy       #####")
+            print("#####         Módulo Motoboy         #####")
             print("############################################")
-            print("##### 1 - Cadastrar Motoboy         #####")
-            print("##### 2 - Exibir Dados do Motoboy    #####")
+            print("##### 1 - Cadastrar Motoboy          #####")
+            print("##### 2 - Exibir Dados do Motoboy   #####")
             print("##### 3 - Alterar Dados do Motoboy   #####")
             print("##### 4 - Excluir Motoboy           #####")
             print("##### 0 - Retornar ao Menu Principal   #####")
@@ -153,54 +171,7 @@ while op_princ != '0':
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print()
                 print("############################################")
-                print("#####         Cadastrar Motoboy      #####")
-                print("############################################")
-                print()
-                nomedomotoboy = input("##### Nome: ")
-                print()
-                cpfdomotoboy = input("##### CPF: ")
-                print()
-                placadomotoboy = input("##### Placa do Motoboy: ")
-                print()
-                celulardomotoboy = input("##### Celular do Motoboy: ")
-                print()
-                print("Motoboy cadastrado com sucesso!")
-                print()
-                print("\t=============================")
-                print("\t=          ATENÇÃO          =")
-                print("\t=      Dados simulados      =")
-                print("\t= Esta funcionalidade ainda =")
-                print("\t=  está sendo implementada. =")
-                print("\t=============================")
-                print()
-                input("Tecle <ENTER> para continuar...")
-            elif op_motoboy == '2':
-                os.system('cls' if os.name == 'nt' else 'clear')
-                print()
-                print("############################################")
-                print("#####      Exibe Dados do Motoboy    #####")
-                print("############################################")
-                print()
-                cpfdomotoboy = input("##### CPF do Motoboy: ")
-                print()
-                print("##### CPF    :", cpfdomotoboy)
-                print("##### Nome   : Motoboy 1")
-                print("##### Placa  : 111-111")
-                print("##### Celular: 9811-1111")
-                print()
-                print("\t=============================")
-                print("\t=          ATENÇÃO          =")
-                print("\t=      Dados simulados      =")
-                print("\t= Esta funcionalidade ainda =")
-                print("\t=  está sendo implementada. =")
-                print("\t=============================")
-                print()
-                input("Tecle <ENTER> para continuar...")
-            elif op_motoboy == '3':
-                os.system('cls' if os.name == 'nt' else 'clear')
-                print()
-                print("############################################")
-                print("#####     Alterar Dados do Motoboy    #####")
+                print("#####         Cadastrar Motoboy       #####")
                 print("############################################")
                 print()
                 nomedomotoboy = input("##### Nome: ")
@@ -211,14 +182,55 @@ while op_princ != '0':
                 print()
                 celulardomotoboy = input("##### Celular: ")
                 print()
-                print("Motoboy alterado com sucesso!")
+                motoboys[cpfdomotoboy] = [nomedomotoboy, placadomotoboy, celulardomotoboy]
+                print("Motoboys:", motoboys)    # Apenas para conferir inclusão
+                print("Motoboy cadastrado com sucesso!")
                 print()
-                print("\t=============================")
-                print("\t=          ATENÇÃO          =")
-                print("\t=      Dados simulados      =")
-                print("\t= Esta funcionalidade ainda =")
-                print("\t=  está sendo implementada. =")
-                print("\t=============================")
+                input("Tecle <ENTER> para continuar...")
+            elif op_motoboy == '2':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####      Exibe Dados do Motoboy    #####")
+                print("############################################")
+                print()
+                cpf = input("##### CPF: ")
+                print()
+                if cpf in motoboys:
+                    print("##### Nome   :", motoboys[cpf][0])
+                    print("##### Placa  :", motoboys[cpf][1])
+                    print("##### Celular:", motoboys[cpf][2])
+                else:
+                    print("Motoboy não encontrado!")
+                print()
+                input("Tecle <ENTER> para continuar...")
+            elif op_motoboy == '3':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####     Alterar Dados do Motoboy    #####")
+                print("############################################")
+                print()
+                cpf = input("##### CPF: ")
+                print()
+                if cpf in motoboys:
+                    print("##### Dados atuais do Motoboy:")
+                    print("##### Nome   :", motoboys[cpf][0])
+                    print("##### Placa  :", motoboys[cpf][1])
+                    print("##### Celular:", motoboys[cpf][2])
+                    print()
+                    print("##### Digite os novos dados do Motoboy:")
+                    nomedomotoboy = input("##### Novo nome   : ")
+                    placadomotoboy = input("##### Nova Placa  : ")
+                    celulardomotoboy = input("##### Novo celular: ")
+                    motoboys[cpf] = [nomedomotoboy,placadomotoboy, celulardomotoboy]
+                    print()
+                    print("Motoboy alterado com sucesso!")
+                    print()
+                    print("Motoboys:", motoboys)    # Apenas para conferir alteração
+                    print()
+                else:
+                    print("Motoboy não encontrado!")
                 print()
                 input("Tecle <ENTER> para continuar...")
             elif op_motoboy == '4':
@@ -228,19 +240,27 @@ while op_princ != '0':
                 print("#####       Excluir Motoboy          #####")
                 print("############################################")
                 print()
-                cpfdomotoboy = input("##### CPF: ")
+                cpf = input("##### CPF: ")
                 print()
-                print("Motoboy excluído com sucesso!")
-                print()
-                print("\t=============================")
-                print("\t=          ATENÇÃO          =")
-                print("\t=      Dados simulados      =")
-                print("\t= Esta funcionalidade ainda =")
-                print("\t=  está sendo implementada. =")
-                print("\t=============================")
+                if cpf in motoboys:
+                    print("##### Motoboy encontrado:")
+                    print("##### Nome   :", motoboys[cpf][0])
+                    print("##### Placa  :", motoboys[cpf][1])
+                    print("##### Celular:", motoboys[cpf][2])
+                    print()
+                    confirma = input("Tecle 's' para confirmar exclusão...")
+                    if confirma.lower() == 's':
+                        del motoboys[cpf]
+                        print("Motoboy excluído com sucesso!")
+                        print()
+                        print("Motoboys:", motoboys)    # Apenas para conferir exclusão
+                    else:
+                        print("Exclusão cancelada!")
+                else:
+                    print("Motoboy não encontrado!")
                 print()
                 input("Tecle <ENTER> para continuar...")
-    
+
     elif op_princ == '3':
         op_entregas = ''
         while op_entregas != '0':
@@ -249,10 +269,10 @@ while op_princ != '0':
             print("############################################")
             print("#####           Módulo Entregas           #####")
             print("############################################")
-            print("##### 1 - Cadastrar Entrega             #####")
-            print("##### 2 - Exibir Dados da Entrega       #####")
+            print("##### 1 - Cadastrar Entrega            #####")
+            print("##### 2 - Exibir Dados da Entrega        #####")
             print("##### 3 - Alterar Dados da Entrega       #####")
-            print("##### 4 - Excluir Entrega                #####")
+            print("##### 4 - Excluir Entrega               #####")
             print("##### 0 - Retornar ao Menu Principal   #####")
             op_entrega = input("##### Escolha sua opção: ")
             print()
@@ -263,22 +283,19 @@ while op_princ != '0':
                 print("#####           Cadastrar Entrega         #####")
                 print("############################################")
                 print()
-                numerodaentrega = input("##### Número da Entrega: ")
-                print()
                 produtodaentrega = input("##### Produto da Entrega: ")
                 print()
-                endereco = input("##### Endereço da Entrega: ")
+                numerodaentrega = input("##### Número da Entrega: ")
                 print()
-                cpf_cliente = input("##### CPF do Cliente: ")
+                enderecodaentrega = input("##### Endereço da Entrega: ")
                 print()
+                cpfdoclientedaentrega= input("##### CPF do Cliente: ")
+                print()
+                cpfdomotoboydaentrega = input("##### CPF do Motoboy: ")
+                print()
+                entregas[numerodaentrega] = [produtodaentrega, enderecodaentrega, cpfdoclientedaentrega, cpfdomotoboydaentrega]
+                print("Entregas:", entregas)    # Apenas para conferir inclusão
                 print("Entrega cadastrada com sucesso!")
-                print()
-                print("\t=============================")
-                print("\t=          ATENÇÃO          =")
-                print("\t=      Dados simulados      =")
-                print("\t= Esta funcionalidade ainda =")
-                print("\t=  está sendo implementada. =")
-                print("\t=============================")
                 print()
                 input("Tecle <ENTER> para continuar...")
             elif op_entrega == '2':
@@ -290,42 +307,49 @@ while op_princ != '0':
                 print()
                 numerodaentrega = input("##### Número da Entrega: ")
                 print()
-                print("##### Número da Entrega   :", numerodaentrega)
-                print("##### Produto    : Sanduíche")
-                print("##### Endereço  : Rua do Nunca")
-                print("##### Cliente: Michael Jackson")
-                print()
-                print("\t=============================")
-                print("\t=          ATENÇÃO          =")
-                print("\t=      Dados simulados      =")
-                print("\t= Esta funcionalidade ainda =")
-                print("\t=  está sendo implementada. =")
-                print("\t=============================")
+                if numerodaentrega in entregas:
+                    print("##### Produto     :",entregas[numerodaentrega][0])
+                    print("##### Endereço  :", entregas[numerodaentrega][1])
+                    print("##### CPF do Cliente    :", entregas[numerodaentrega][2])
+                    print("##### CPF do Motoboy:", entregas[numerodaentrega][3])
+                else:
+                    print("Entrega não encontrada!")
                 print()
                 input("Tecle <ENTER> para continuar...")
             elif op_entrega == '3':
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print()
                 print("############################################")
-                print("#####       Alterar Dados da Entrega      #####")
+                print("#####       Altera Dados da Entrega      #####")
                 print("############################################")
                 print()
-                numerodaentrega = input("##### Número da Entrega: ")
+                numerodaentrega_antigo = input("##### Número da Entrega a ser alterada: ")
                 print()
-                produtodaentrega = input("##### Produto da Entrega: ")
-                print()
-                enderecodaentrega = input("##### Endereço da Entrega: ")
-                print()
-                cpf_cliente = input("##### CPF do Cliente: ")
-                print()
-                print("Entrega alterada com sucesso!")
-                print()
-                print("\t=============================")
-                print("\t=          ATENÇÃO          =")
-                print("\t=      Dados simulados      =")
-                print("\t= Esta funcionalidade ainda =")
-                print("\t=  está sendo implementada. =")
-                print("\t=============================")
+                if numerodaentrega_antigo in entregas:
+                    print("##### Dados atuais da entrega:")
+                    print("##### Produto     :", entregas[numerodaentrega_antigo][0])
+                    print("##### Endereço  :", entregas[numerodaentrega_antigo][1])
+                    print("##### CPF do Cliente    :", entregas[numerodaentrega_antigo][2])
+                    print("##### CPF do Motoboy:", entregas[numerodaentrega_antigo][3])
+                    print()
+                    print("##### Digite os novos dados da entrega:")
+                    novo_numerodaentrega = input("##### Novo número de entrega: ")
+                    produtodaentrega = input("##### Novo produto: ")
+                    enderecodaentrega = input("##### Novo endereço: ")
+                    cpfdoclientedaentrega= input("##### Novo CPF do cliente: ")
+                    cpfdomotoboydaentrega = input("##### Novo CPF do Motoboy: ")
+
+                    # Delete old entry if key changes
+                    if numerodaentrega_antigo != novo_numerodaentrega:
+                        del entregas[numerodaentrega_antigo]
+
+                    entregas[novo_numerodaentrega] = [produtodaentrega, enderecodaentrega, cpfdoclientedaentrega, cpfdomotoboydaentrega]
+                    print()
+                    print("Entrega alterada com sucesso!")
+                    print()
+                    print("Entregas:", entregas)    # Apenas para conferir alteração
+                else:
+                    print("Entrega não encontrada!")
                 print()
                 input("Tecle <ENTER> para continuar...")
             elif op_entrega == '4':
@@ -337,33 +361,145 @@ while op_princ != '0':
                 print()
                 numerodaentrega = input("##### Número da Entrega: ")
                 print()
-                print("Entrega excluída com sucesso!")
-                print()
-                print("\t=============================")
-                print("\t=          ATENÇÃO          =")
-                print("\t=      Dados simulados      =")
-                print("\t= Esta funcionalidade ainda =")
-                print("\t=  está sendo implementada. =")
-                print("\t=============================")
+                if numerodaentrega in entregas:
+                    print("##### Entrega encontrada:")
+                    print("##### Produto da Entrega    :", entregas[numerodaentrega][0])
+                    print("##### Endereço  :", entregas[numerodaentrega][1])
+                    print("##### CPF do Cliente    :", entregas[numerodaentrega][2])
+                    print("##### CPF do Motoboy:", entregas[numerodaentrega][3])
+                    print()
+                    confirma = input("Tecle 's' para confirmar exclusão...")
+                    if confirma.lower() == 's':
+                        del entregas[numerodaentrega]
+                        print("Entrega excluída com sucesso!")
+                        print()
+                        print("Entregas:", entregas)    # Apenas para conferir exclusão
+                    else:
+                        print("Exclusão cancelada!")
+                else:
+                    print("Entrega não encontrada!")
                 print()
                 input("Tecle <ENTER> para continuar...")
-    
+
     elif op_princ == '4':
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print()
-        print("############################################")
-        print("#####         Módulo Relatório         #####")
-        print("############################################")
-        print("##### 1 - Lista Geral de Clientes        #####")
-        print("##### 2 - Lista Geral de Motoboys   #####")
-        print("##### 3 - Lista Geral de Entregas        #####")
-        print("##### 4 - Lista de Clientes por Entrega    #####")
-        print("##### 5 - Lista de Entregas p/ Motoboy #####")
-        print("##### 0 - Retornar ao Menu Principal   #####")
-        op_cliente = input("##### Escolha sua opção: ")
-        print()
-        input("Tecle <ENTER> para continuar...")
-    
+        op_relatorio = ''
+        while op_relatorio != '0':
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print()
+            print("############################################")
+            print("#####         Módulo Relatório         #####")
+            print("############################################")
+            print("##### 1 - Lista Geral de Clientes        #####")
+            print("##### 2 - Lista Geral de Motoboys   #####")
+            print("##### 3 - Lista Geral de Entregas        #####")
+            print("##### 4 - Lista de Clientes por Entrega    #####")
+            print("##### 5 - Lista de Entregas p/ Motoboy #####")
+            print("##### 0 - Retornar ao Menu Principal   #####")
+            op_relatorio = input("##### Escolha sua opção: ")
+            print()
+            if op_relatorio == '1':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####    Lista Geral de Clientes         #####")
+                print("############################################")
+                print()
+                if clientes:
+                    for cpf, dados in clientes.items():
+                        print(f"##### CPF: {cpf}, Nome: {dados[0]}, Endereço: {dados[1]}, Celular: {dados[2]}")
+                else:
+                    print("Nenhum cliente cadastrado.")
+                print()
+                input("Tecle <ENTER> para continuar...")
+            elif op_relatorio == '2':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####    Lista Geral de Motoboys         #####")
+                print("############################################")
+                print()
+                if motoboys:
+                    for cpf, dados in motoboys.items():
+                        print(f"##### CPF: {cpf}, Nome: {dados[0]}, Placa: {dados[1]}, Celular: {dados[2]}")
+                else:
+                    print("Nenhum motoboy cadastrado.")
+                print()
+                input("Tecle <ENTER> para continuar...")
+            elif op_relatorio == '3':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####    Lista Geral de Entregas         #####")
+                print("############################################")
+                print()
+                if entregas:
+                    for num_entrega, dados in entregas.items():
+                        print(f"##### Número da Entrega: {num_entrega}, Produto: {dados[0]}, Endereço: {dados[1]}, CPF Cliente: {dados[2]}, CPF Motoboy: {dados[3]}")
+                else:
+                    print("Nenhuma entrega cadastrada.")
+                print()
+                input("Tecle <ENTER> para continuar...")
+            elif op_relatorio == '4':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####   Lista de Clientes por Entrega    #####")
+                print("############################################")
+                print()
+                if entregas and clientes:
+                    for num_entrega, dados_entrega in entregas.items():
+                        cpf_cliente = dados_entrega[2]
+                        if cpf_cliente in clientes:
+                            dados_cliente = clientes[cpf_cliente]
+                            print(f"##### Entrega Nº {num_entrega} - Cliente: {dados_cliente[0]} (CPF: {cpf_cliente})")
+                        else:
+                            print(f"##### Entrega Nº {num_entrega} - Cliente (CPF: {cpf_cliente}) não encontrado.")
+                else:
+                    print("Nenhuma entrega ou cliente cadastrado.")
+                print()
+                input("Tecle <ENTER> para continuar...")
+            elif op_relatorio == '5':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####   Lista de Entregas p/ Motoboy   #####")
+                print("############################################")
+                print()
+                if entregas and motoboys:
+                    cpf_motoboy_relatorio = input("##### Digite o CPF do Motoboy para listar as entregas: ")
+                    entregas_encontradas = False
+                    if cpf_motoboy_relatorio in motoboys:
+                        print(f"##### Entregas para Motoboy: {motoboys[cpf_motoboy_relatorio][0]} (CPF: {cpf_motoboy_relatorio})")
+                        for num_entrega, dados_entrega in entregas.items():
+                            if dados_entrega[3] == cpf_motoboy_relatorio:
+                                print(f"#####   - Entrega Nº {num_entrega}: Produto: {dados_entrega[0]}, Endereço: {dados_entrega[1]}")
+                                entregas_encontradas = True
+                        if not entregas_encontradas:
+                            print(f"##### Nenhuma entrega encontrada para o motoboy {motoboys[cpf_motoboy_relatorio][0]}.")
+                    else:
+                        print("Motoboy não encontrado.")
+                else:
+                    print("Nenhuma entrega ou motoboy cadastrado.")
+                print()
+                input("Tecle <ENTER> para continuar...")
+            elif op_relatorio == '0':
+                pass # Exits the inner while loop
+            else:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####   Você digitou uma opção inválida ####")
+                print("############################################")
+                print("#####                                   ####")
+                print("#####      Retorne ao menu anterior     ####")
+                print("#####         e tente novamente         ####")
+                print("#####                                   ####")
+                print("############################################")
+                print()
+                input("Tecle <ENTER> para continuar...")
+
+
+
     elif op_princ == '5':
         os.system('cls' if os.name == 'nt' else 'clear')
         print()
@@ -371,14 +507,14 @@ while op_princ != '0':
         print("#####  Você está no Módulo Informações  ####")
         print("############################################")
         print()
-        print("#####  Projeto de Gestão para uma Empresa de Entregas  ####")
+        print("#####  Sistema de Gestão para uma empresa de entregas  ####")
         print("#####  Equipe de desenvolvimento:       ####")
         print("#####  * Thiago Eudes Brito dos Anjos   ####")
         print("#####  Licença Pública Geral GNU        ####")
         print("#####  www.gnu.org/licenses/gpl.html    ####")
         print()
         input("Tecle <ENTER> para continuar...")
-    
+
     elif op_princ == '0':
         os.system('cls' if os.name == 'nt' else 'clear')
         print()
@@ -387,7 +523,7 @@ while op_princ != '0':
         print("############################################")
         print()
         input("Tecle <ENTER> para continuar...")
-    
+
     else:
         os.system('cls' if os.name == 'nt' else 'clear')
         print()
@@ -402,5 +538,4 @@ while op_princ != '0':
         print()
         input("Tecle <ENTER> para continuar...")
 
-print("Obrigado por usar o Sistema BitScola")
-
+print("Obrigado por usar o Sistema MotoFast")
