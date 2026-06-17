@@ -325,7 +325,7 @@ while op_princ != '0':
                 print()
                 numerodaentrega = input("##### Número da Entrega: ")
                 print()
-                if numerodaentrega in turmas:
+                if numerodaentrega in entregas:
                     print("##### Dados atuais da entrega:")
                     print("##### Produto     :", entregas[numerodaentrega][0])
                     print("##### Endereço  :", entregas[numerodaentrega][1])
