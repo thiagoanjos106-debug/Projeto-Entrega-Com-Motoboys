@@ -1,34 +1,88 @@
 import os
+import pickle
 
 ########################################
-##### Sistema MotoFast - Versão 3  #####
+##### Sistema MotoFast - Versão 4  #####
 ########################################
 
-clientes = {
-    '111' : ["Cliente 1", "rua qualquer 1", "9911-1111"],
-    '222' : ["Cliente 2", "rua qualquer 2", "9922-2222"],
-    '333' : ["Cliente 3", "rua qualquer 3", "9933-3333"],
-    '444' : ["Cliente 4", "rua qualquer 4", "9944-4444"],
-    '555' : ["Cliente 5", "rua qualquer 5", "9955-5555"]   
+clientes = {}
+try:
+    arq_clientes = open("clientes.csv", "rt", encoding="utf-8")
+    for linha in arq_clientes:
+        linha = linha.strip()
+        if linha:
+            campos = linha.split(",")
+            cpf = campos[0]
+            nomedocliente = campos[1]
+            enderecodocliente = campos[2]
+            celular = campos[3]
+            clientes[cpf] = [nomedocliente, enderecodocliente, celular]
+    arq_clientes.close()
+except:
+    clientes = {
+    '111.111.111-11' : ["Cliente 1", "rua qualquer 1", "9911-1111"],
+    '222.222.222-22' : ["Cliente 2", "rua qualquer 2", "9922-2222"],
+    '333.333.333-33' : ["Cliente 3", "rua qualquer 3", "9933-3333"],
+    '444.444.444-44' : ["Cliente 4", "rua qualquer 4", "9944-4444"],
+    '555.555.555-55' : ["Cliente 5", "rua qualquer 5", "9955-5555"]
 }
+    arq_clientes = open("clientes.csv", "wt", encoding="utf-8")
+    for cpf, dados in clientes.items():
+        arq_clientes.write(f"{cpf},{dados[0]},{dados[1]},{dados[2]}\n")
+    arq_clientes.close()
 
-motoboys = {
-    # CPF: [Nome, Placa, Celular]
-    '000.000.000-01': ['Motoboy 1', 'ABC 0001', '9.0000-0001'], 
-    '000.000.000-02': ['Motoboy 2', 'ABC 0002', '9.0000-0002'], 
+motoboys = {}
+try:
+    arq_motoboys = open("motoboys.csv", "rt", encoding="utf-8")
+    for linha in arq_motoboys:
+        linha = linha.strip()
+        if linha:
+            campos = linha.split(",")
+            cpf = campos[0]
+            nomedomotoboy = campos[1]
+            placadomotoboy= campos[2]
+            celulardomotoboy = campos[3]
+            motoboys[cpf] = [nomedomotoboy, placadomotoboy, celulardomotoboy]
+    arq_motoboys.close()
+except:
+    motoboys = {
+    '000.000.000-01': ['Motoboy 1', 'ABC 0001', '9.0000-0001'],
+    '000.000.000-02': ['Motoboy 2', 'ABC 0002', '9.0000-0002'],
     '000.000.000-03': ['Motoboy 3', 'ABC 0003', '9.0000-0003'],
     '000.000.000-04': ['Motoboy 4', 'ABC 0004', '9.0000-0004'],
     '000.000.000-05': ['Motoboy 5', 'ABC 0005', '9.0000-0005']
 }
+    arq_motoboys = open("motoboys.csv", "wt", encoding="utf-8")
+    for cpf, dados in motoboys.items():
+        arq_motoboys.write(f"{cpf},{dados[0]},{dados[1]},{dados[2]}\n")
+    arq_motoboys.close()
 
-entregas = {
-    # Número da Entrega: [Produto, Endereço, CPF do Cliente, CPF do Motoboy]
-    '0001': ['X-Tudo', 'Rua Qualquer - 1', '111.111.111-11', '000.000.000-01'], 
-    '0002': ['Pizza', 'Rua Qualquer - 2', '222.222.222-22', '000.000.000-02'], 
+entregas = {}
+try:
+    arq_entregas = open("entregas.csv", "rt", encoding="utf-8")
+    for linha in arq_entregas:
+        linha = linha.strip()
+        if linha:
+            campos = linha.split(",")
+            numerodaentrega = campos[0]
+            produtodaentrega = campos[1]
+            enderecodaentrega = campos[2]
+            cpfdocliente= campos[3]
+            cpfdomotoboy = campos[4]
+            entregas[numerodaentrega] = [produtodaentrega, enderecodaentrega, cpfdocliente, cpfdomotoboy]
+    arq_entregas.close()
+except:
+    entregas = {
+    '0001': ['X-Tudo', 'Rua Qualquer - 1', '111.111.111-11', '000.000.000-01'],
+    '0002': ['Pizza', 'Rua Qualquer - 2', '222.222.222-22', '000.000.000-02'],
     '0003': ['Açaí', 'Rua Qualquer - 3', '333.333.333-33', '000.000.000-03'],
     '0004': ['Batata Frita', 'Rua Qualquer - 4', '444.444.444-44', '000.000.000-04'],
     '0005': ['Bolo de Chocolate', 'Rua Qualquer - 5', '555.555.555-55', '000.000.000-05']
 }
+    arq_entregas = open("entregas.csv", "wt", encoding="utf-8")
+    for numerodaentrega, dados in entregas.items():
+        arq_entregas.write(f"{numerodaentrega},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n")
+    arq_entregas.close()
 
 op_princ = ''
 while op_princ != '0':
@@ -74,7 +128,7 @@ while op_princ != '0':
                 print()
                 celulardocliente = input("##### Celular: ")
                 print()
-                clientes[cpf] = [nome, endereço, celular]
+                clientes[cpfdocliente] = [nomedocliente, enderecodocliente, celulardocliente]
                 print("Clientes:", clientes)    # Apenas para conferir inclusão
                 print("Cliente cadastrado com sucesso!")
                 input("Tecle <ENTER> para continuar...")
@@ -114,11 +168,11 @@ while op_princ != '0':
                     nomedocliente = input("##### Novo nome   : ")
                     enderecodocliente = input("##### Novo endereço  : ")
                     celulardocliente = input("##### Novo celular: ")
-                    clientes[cpf] = [nome, endereço, celular]
+                    clientes[cpf] = [nomedocliente, enderecodocliente, celulardocliente]
                     print()
                     print("Cliente alterado com sucesso!")
                     print()
-                    print("Clientes:", clintes)    # Apenas para conferir alteração
+                    print("Clientes:", clientes)    # Apenas para conferir alteração
                     print()
                 else:
                     print("Cliente não encontrado!")
@@ -151,8 +205,8 @@ while op_princ != '0':
                     print("Cliente não encontrado!")
                 print()
                 input("Tecle <ENTER> para continuar...")
-    
- elif op_princ == '2':
+
+    elif op_princ == '2':
         op_motoboy = ''
         while op_motoboy != '0':
             os.system('cls' if os.name == 'nt' else 'clear')
@@ -182,7 +236,7 @@ while op_princ != '0':
                 print()
                 celulardomotoboy = input("##### Celular: ")
                 print()
-                motoboys[cpf] = [nome, placa, celular]
+                motoboys[cpfdomotoboy] = [nomedomotoboy, placadomotoboy, celulardomotoboy]
                 print("Motoboys:", motoboys)    # Apenas para conferir inclusão
                 print("Motoboy cadastrado com sucesso!")
                 print()
@@ -223,7 +277,7 @@ while op_princ != '0':
                     nomedomotoboy = input("##### Novo nome   : ")
                     placadomotoboy = input("##### Nova Placa  : ")
                     celulardomotoboy = input("##### Novo celular: ")
-                    motoboys[cpf] = [nome,placa, celular]
+                    motoboys[cpf] = [nomedomotoboy,placadomotoboy, celulardomotoboy]
                     print()
                     print("Motoboy alterado com sucesso!")
                     print()
@@ -260,7 +314,7 @@ while op_princ != '0':
                     print("Motoboy não encontrado!")
                 print()
                 input("Tecle <ENTER> para continuar...")
-    
+
     elif op_princ == '3':
         op_entregas = ''
         while op_entregas != '0':
@@ -323,22 +377,21 @@ while op_princ != '0':
                 print("#####       Altera Dados da Entrega      #####")
                 print("############################################")
                 print()
-                numerodaentrega = input("##### Número da Entrega: ")
+                numerodaentrega_antigo = input("##### Número da Entrega: ")
                 print()
-                if numerodaentrega in entregas:
+                if numerodaentrega_antigo in entregas:
                     print("##### Dados atuais da entrega:")
-                    print("##### Produto     :", entregas[numerodaentrega][0])
-                    print("##### Endereço  :", entregas[numerodaentrega][1])
-                    print("##### CPF do Cliente    :", entregas[numerodaentrega][2])
-                    print("##### CPF do Motoboy:", entregas[numerodaentrega][3])
+                    print("##### Produto     :", entregas[numerodaentrega_antigo][0])
+                    print("##### Endereço  :", entregas[numerodaentrega_antigo][1])
+                    print("##### CPF do Cliente    :", entregas[numerodaentrega_antigo][2])
+                    print("##### CPF do Motoboy:", entregas[numerodaentrega_antigo][3])
                     print()
                     print("##### Digite os novos dados da entrega:")
-                    numerodaentrega = input("##### Novo número de entrega: ")
                     produtodaentrega = input("##### Novo produto: ")
                     enderecodaentrega = input("##### Novo endereço: ")
                     cpfdoclientedaentrega= input("##### Novo CPF do cliente: ")
-                    cpfdomotoboydaentrega = input(“##### Novo CPF do Motoboy: “)
-                    entregas[numerodaentrega] = [numerodaentrega, produtodaentrega, enderecodaentrega, cpfdoclientedaentrega, cpfdomotoboydaentrega]
+                    cpfdomotoboydaentrega = input("##### Novo CPF do Motoboy: ")
+                    entregas[numerodaentrega_antigo] = [produtodaentrega, enderecodaentrega, cpfdoclientedaentrega, cpfdomotoboydaentrega]
                     print()
                     print("Entrega alterada com sucesso!")
                     print()
@@ -375,23 +428,126 @@ while op_princ != '0':
                     print("Entrega não encontrada!")
                 print()
                 input("Tecle <ENTER> para continuar...")
-    
+
     elif op_princ == '4':
-        os.system('cls' if os.name == 'nt' else 'clear')
-        print()
-        print("############################################")
-        print("#####         Módulo Relatório         #####")
-        print("############################################")
-        print("##### 1 - Lista Geral de Clientes        #####")
-        print("##### 2 - Lista Geral de Motoboys   #####")
-        print("##### 3 - Lista Geral de Entregas        #####")
-        print("##### 4 - Lista de Clientes por Entrega    #####")
-        print("##### 5 - Lista de Entregas p/ Motoboy #####")
-        print("##### 0 - Retornar ao Menu Principal   #####")
-        op_cliente = input("##### Escolha sua opção: ")
-        print()
-        input("Tecle <ENTER> para continuar...")
-    
+        op_relatorio = ''
+        while op_relatorio != '0':
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print()
+            print("############################################")
+            print("#####         Módulo Relatório         #####")
+            print("############################################")
+            print("##### 1 - Lista Geral de Clientes        #####")
+            print("##### 2 - Lista Geral de Motoboys   #####")
+            print("##### 3 - Lista Geral de Entregas        #####")
+            print("##### 4 - Lista de Entregas por Cliente  #####")
+            print("##### 5 - Lista de Entregas p/ Motoboy #####")
+            print("##### 0 - Retornar ao Menu Principal   #####")
+            op_relatorio = input("##### Escolha sua opção: ")
+            print()
+
+            if op_relatorio == '1':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####     Lista Geral de Clientes        #####")
+                print("############################################")
+                print()
+                if clientes:
+                    for cpf, dados in clientes.items():
+                        print(f"##### CPF: {cpf}, Nome: {dados[0]}, Endereço: {dados[1]}, Celular: {dados[2]}")
+                else:
+                    print("Nenhum cliente cadastrado.")
+                print()
+                input("Tecle <ENTER> para continuar...")
+            elif op_relatorio == '2':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####     Lista Geral de Motoboys        #####")
+                print("############################################")
+                print()
+                if motoboys:
+                    for cpf, dados in motoboys.items():
+                        print(f"##### CPF: {cpf}, Nome: {dados[0]}, Placa: {dados[1]}, Celular: {dados[2]}")
+                else:
+                    print("Nenhum motoboy cadastrado.")
+                print()
+                input("Tecle <ENTER> para continuar...")
+            elif op_relatorio == '3':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####     Lista Geral de Entregas        #####")
+                print("############################################")
+                print()
+                if entregas:
+                    for num_entrega, dados in entregas.items():
+                        print(f"##### Número: {num_entrega}, Produto: {dados[0]}, Endereço: {dados[1]}, CPF Cliente: {dados[2]}, CPF Motoboy: {dados[3]}")
+                else:
+                    print("Nenhuma entrega cadastrada.")
+                print()
+                input("Tecle <ENTER> para continuar...")
+            elif op_relatorio == '4':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####   Lista de Entregas por Cliente    #####")
+                print("############################################")
+                print()
+                cpf_cliente_relatorio = input("##### Digite o CPF do cliente para listar as entregas: ")
+                print()
+                entregas_encontradas = False
+                if cpf_cliente_relatorio in clientes:
+                    print(f"##### Entregas para o Cliente: {clientes[cpf_cliente_relatorio][0]} (CPF: {cpf_cliente_relatorio})")
+                    for num_entrega, dados_entrega in entregas.items():
+                        if dados_entrega[2] == cpf_cliente_relatorio:
+                            print(f"#####   - Número: {num_entrega}, Produto: {dados_entrega[0]}, Endereço: {dados_entrega[1]}, CPF Motoboy: {dados_entrega[3]}")
+                            entregas_encontradas = True
+                    if not entregas_encontradas:
+                        print("##### Nenhuma entrega encontrada para este cliente.")
+                else:
+                    print("Cliente não encontrado!")
+                print()
+                input("Tecle <ENTER> para continuar...")
+            elif op_relatorio == '5':
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####    Lista de Entregas p/ Motoboy    #####")
+                print("############################################")
+                print()
+                cpf_motoboy_relatorio = input("##### Digite o CPF do motoboy para listar as entregas: ")
+                print()
+                entregas_encontradas = False
+                if cpf_motoboy_relatorio in motoboys:
+                    print(f"##### Entregas para o Motoboy: {motoboys[cpf_motoboy_relatorio][0]} (CPF: {cpf_motoboy_relatorio})")
+                    for num_entrega, dados_entrega in entregas.items():
+                        if dados_entrega[3] == cpf_motoboy_relatorio:
+                            print(f"#####   - Número: {num_entrega}, Produto: {dados_entrega[0]}, Endereço: {dados_entrega[1]}, CPF Cliente: {dados_entrega[2]}")
+                            entregas_encontradas = True
+                    if not entregas_encontradas:
+                        print("##### Nenhuma entrega encontrada para este motoboy.")
+                else:
+                    print("Motoboy não encontrado.")
+                print()
+                input("Tecle <ENTER> para continuar...")
+            elif op_relatorio == '0':
+                pass # Retorna ao menu principal
+            else:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print()
+                print("############################################")
+                print("#####   Você digitou uma opção inválida ####")
+                print("############################################")
+                print("#####                                   ####")
+                print("#####      Retorne ao menu anterior     ####")
+                print("#####         e tente novamente         ####")
+                print("#####                                   ####")
+                print("############################################")
+                print()
+                input("Tecle <ENTER> para continuar...")
+
     elif op_princ == '5':
         os.system('cls' if os.name == 'nt' else 'clear')
         print()
@@ -406,7 +562,7 @@ while op_princ != '0':
         print("#####  www.gnu.org/licenses/gpl.html    ####")
         print()
         input("Tecle <ENTER> para continuar...")
-    
+
     elif op_princ == '0':
         os.system('cls' if os.name == 'nt' else 'clear')
         print()
@@ -415,7 +571,7 @@ while op_princ != '0':
         print("############################################")
         print()
         input("Tecle <ENTER> para continuar...")
-    
+
     else:
         os.system('cls' if os.name == 'nt' else 'clear')
         print()
@@ -432,3 +588,18 @@ while op_princ != '0':
 
 print("Obrigado por usar o Sistema MotoFast")
 
+arq_clientes = open("clientes.csv", "wt", encoding="utf-8")
+for cpf, dados in clientes.items():
+    arq_clientes.write(f"{cpf},{dados[0]},{dados[1]},{dados[2]}\n")
+arq_clientes.close()
+
+arq_motoboys = open("motoboys.csv", "wt", encoding="utf-8")
+for cpfdomotoboy, dados in motoboys.items():
+    arq_motoboys.write(f"{cpfdomotoboy},{dados[0]},{dados[1]},{dados[2]}\n")
+arq_motoboys.close()
+
+
+arq_entregas = open("entregas.csv", "wt", encoding="utf-8")
+for numerodaentrega, dados in entregas.items():
+    arq_entregas.write(f"{numerodaentrega},{dados[0]},{dados[1]},{dados[2]},{dados[3]}\n")
+arq_entregas.close()
